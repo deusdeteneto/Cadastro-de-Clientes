@@ -10,7 +10,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="assets/fact_check.png" type="image/x-icon" />
     <title>Cadastro de Clientes</title>
   </head>
   <body>
@@ -25,6 +25,7 @@
             <div class="flex-grow-1 mx-1">
               <label for="inputName" class="form-label mb-0">Nome</label>
               <input
+                required
                 type="text"
                 class="form-control form-control-sm"
                 id="inputName"
@@ -35,6 +36,7 @@
                 >Sobrenome</label
               >
               <input
+                required
                 type="text"
                 class="form-control form-control-sm"
                 id="inputSurname"
@@ -48,8 +50,8 @@
             <label for="inputCep" class="form-label mb-0"
               >Pesquise pelo CEP</label
             >
-            <!-- TODO verificar função .removeAttribute -->
             <input
+              required
               type="text"
               class="form-control form-control-sm"
               id="inputCep"
