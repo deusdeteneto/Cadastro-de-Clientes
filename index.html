@@ -10,7 +10,11 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="shortcut icon" href="assets/fact_check.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="assets/fact_check.png"
+      type="image/x-icon"
+    />
     <title>Cadastro de Clientes</title>
   </head>
   <body>
@@ -19,7 +23,7 @@
     <main class="container shadow-lg p-4 mt-4 rounded-3" style="width: 800px">
       <!-- Formulário -->
       <form>
-        <fieldset>
+        <fieldset id="infoPersonFieldset">
           <legend class="fs-5 mt-2 mb-0">Informações Pessoais:</legend>
           <div class="d-flex justify-content-between mb-1">
             <div class="flex-grow-1 mx-1">
@@ -44,7 +48,7 @@
             </div>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset id="addressFieldset">
           <legend class="fs-5 mt-2 mb-0">Endereço:</legend>
           <div class="col-3 mx-1 mb-1">
             <label for="inputCep" class="form-label mb-0"
@@ -61,6 +65,7 @@
             <div class="flex-grow-1 mx-1">
               <label for="inputAddress" class="form-label mb-0">Endereço</label>
               <input
+                disabled
                 type="text"
                 class="form-control form-control-sm"
                 id="inputAddress"
@@ -69,6 +74,7 @@
             <div class="flex-grow-6 mx-1">
               <label for="inputNumber" class="form-label mb-0">Número</label>
               <input
+                disabled
                 type="text"
                 class="form-control form-control-sm"
                 id="inputNumber"
@@ -79,6 +85,7 @@
             <div class="flex-grow-1 mx-1">
               <label for="inputDistrict" class="form-label mb-0">Bairro</label>
               <input
+                disabled
                 type="text"
                 class="form-control form-control-sm"
                 id="inputDistrict"
@@ -87,6 +94,7 @@
             <div class="flex-grow-1 mx-1">
               <label for="inputCity" class="form-label mb-0">Cidade</label>
               <input
+                disabled
                 type="text"
                 class="form-control form-control-sm"
                 id="inputCity"
@@ -96,6 +104,7 @@
           <div class="col-2 mx-1 mb-1">
             <label for="inputState" class="form-label mb-0">Estado</label>
             <input
+              disabled
               type="text"
               class="form-control form-control-sm"
               id="inputState"

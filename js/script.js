@@ -1,6 +1,7 @@
-$("#inputCep").mask("00000-000");
-
 $(document).ready(function () {
+  // Aplicar máscara ao campo CEP
+  $("#inputCep").mask("00000-000");
+
   function limpa_formulário_cep() {
     // Limpa valores do formulário de cep.
     $("#inputAddress").val("");
@@ -10,7 +11,7 @@ $(document).ready(function () {
   }
 
   //Quando o campo cep perde o foco.
-  $("#cep").blur(function () {
+  $("#inputCep").blur(function () {
     //Nova variável "cep" somente com dígitos.
     var cep = $(this).val().replace(/\D/g, "");
 
@@ -21,6 +22,8 @@ $(document).ready(function () {
 
       //Valida o formato do CEP.
       if (validacep.test(cep)) {
+        // Habilitar o campo Número mesmo com o fieldset desativado
+        $("#inputNumber").prop("disabled", false);
         //Preenche os campos com "..." enquanto consulta webservice.
         $("#inputAddress").val("...");
         $("#inputDistrict").val("...");
