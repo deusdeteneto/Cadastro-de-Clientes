@@ -1,3 +1,6 @@
+const cepNotFound = document.querySelector("#cep-notFound");
+const cepInvalid = document.querySelector("#cep-invalid");
+
 $(document).ready(function () {
   // Aplicar máscara ao campo CEP
   $("#inputCep").mask("00000-000");
@@ -35,6 +38,10 @@ $(document).ready(function () {
           "https://viacep.com.br/ws/" + cep + "/json/?callback=?",
           function (dados) {
             if (!("erro" in dados)) {
+              //Limpa os erros de Cep inválido e/ou não existente.
+              cepNotFound.innerText = ``;
+              cepInvalid.innerText = ``;
+
               //Atualiza os campos com os valores da consulta.
               $("#inputAddress").val(dados.logradouro);
               $("#inputDistrict").val(dados.bairro);
@@ -44,7 +51,7 @@ $(document).ready(function () {
             else {
               //CEP pesquisado não foi encontrado.
               limpa_formulário_cep();
-              alert("CEP não encontrado.");
+              cepNotFound.innerText = `CEP pesquisado não foi encontrado.`;
             }
           }
         );
@@ -52,7 +59,7 @@ $(document).ready(function () {
       else {
         //cep é inválido.
         limpa_formulário_cep();
-        alert("Formato de CEP inválido.");
+        cepInvalid.innerText = `CEP é inválido.`;
       }
     } //end if.
     else {

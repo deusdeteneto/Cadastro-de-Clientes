@@ -1,4 +1,10 @@
 
+#cep-notFound,
+#cep-invalid {
+  font-size: 12px;
+  font-weight: bold;
+  font-style: italic;
+}
 
 .form-label,
 .btn {
