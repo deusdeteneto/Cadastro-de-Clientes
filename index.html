@@ -20,12 +20,15 @@
   <body>
     <h1 class="fs-4 fw-semibold text-center my-2">Cadastro de Clientes</h1>
 
-    <main class="container shadow-lg p-4 mt-4 rounded-3" style="width: 800px">
+    <main
+      class="container shadow-lg p-4 mt-4 rounded-3"
+      style="max-width: 800px"
+    >
       <!-- Formulário -->
-      <form>
+      <form id="clientForm">
         <fieldset id="infoPersonFieldset">
           <legend class="fs-5 mt-2 mb-0">Informações Pessoais:</legend>
-          <div class="d-flex justify-content-between mb-1">
+          <div class="d-flex flex-wrap justify-content-between mb-1">
             <div class="flex-grow-1 mx-1">
               <label for="inputName" class="form-label mb-0">Nome</label>
               <input
@@ -33,6 +36,7 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputName"
+                name="inputName"
               />
             </div>
             <div class="flex-grow-1 mx-1">
@@ -44,34 +48,35 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputSurname"
+                name="inputSurname"
               />
             </div>
           </div>
         </fieldset>
         <fieldset id="addressFieldset">
           <legend class="fs-5 mt-2 mb-0">Endereço:</legend>
-          <div class="row">
-            
-              <label for="inputCep" class="form-label mx-1 mb-1"
-                >Pesquise pelo CEP</label
-              >
-              <div class="d-flex align-items-center">
-                <div class="col-3 me-4">
-                  <input
-                    required
-                    type="text"
-                    class="form-control form-control-sm"
-                    id="inputCep"
-                  />
-                </div>
-                <!-- Modal Alert -->
-                <span id="cep-notFound" class="text-danger"></span>
-                <span id="cep-invalid" class="text-danger"></span>
+          <div class="row mb-2">
+            <label for="inputCep" class="form-label mx-1 mb-1"
+              >Pesquise pelo CEP</label
+            >
+            <div class="d-flex align-items-center">
+              <div class="col-12 col-md-3 me-4">
+                <input
+                  required
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="inputCep"
+                  name="inputCep"
+                />
               </div>
-            
+              <div class="col-12 col-md-9">
+                <!-- TODO Ajustar os alertas no tamanho MOBILE -->
+                <span id="cep-notFound" class="text-danger d-block"></span>
+                <span id="cep-invalid" class="text-danger d-block"></span>
+              </div>
+            </div>
           </div>
-
-          <div class="d-flex justify-content-between mb-1">
+          <div class="d-flex flex-wrap justify-content-between mb-1">
             <div class="flex-grow-1 mx-1">
               <label for="inputAddress" class="form-label mb-0">Endereço</label>
               <input
@@ -79,6 +84,7 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputAddress"
+                name="inputAddress"
               />
             </div>
             <div class="flex-grow-6 mx-1">
@@ -88,10 +94,11 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputNumber"
+                name="inputNumber"
               />
             </div>
           </div>
-          <div class="d-flex justify-content-between mb-1">
+          <div class="d-flex flex-wrap justify-content-between mb-1">
             <div class="flex-grow-1 mx-1">
               <label for="inputDistrict" class="form-label mb-0">Bairro</label>
               <input
@@ -99,6 +106,7 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputDistrict"
+                name="inputDistrict"
               />
             </div>
             <div class="flex-grow-1 mx-1">
@@ -108,16 +116,18 @@
                 type="text"
                 class="form-control form-control-sm"
                 id="inputCity"
+                name="inputCity"
               />
             </div>
           </div>
-          <div class="col-2 mx-1 mb-1">
+          <div class="col-12 col-md-2 mx-1 mb-1">
             <label for="inputState" class="form-label mb-0">Estado</label>
             <input
               disabled
               type="text"
               class="form-control form-control-sm"
               id="inputState"
+              name="inputState"
             />
           </div>
         </fieldset>
