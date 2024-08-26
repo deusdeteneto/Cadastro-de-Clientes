@@ -138,6 +138,35 @@
         </div>
       </form>
 
+      <!-- Mensagem de Alerta -->
+      <div
+        class="modal fade"
+        id="duplicateModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="duplicateModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title text-danger fw-bold"
+                id="duplicateModalLabel"
+              >
+                Cadastro Duplicado!
+              </h5>
+            </div>
+            <div
+              class="modal-body text-danger text-center fst-italic"
+            >
+              Cliente com os mesmos dados já está cadastrado. Verifique os dados
+              informados e tente novamente!
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Tabela -->
       <table class="table table-sm mt-5">
         <thead>
@@ -155,11 +184,11 @@
           <tr>
             <th scope="row">1</th>
             <td>Mark Scott</td>
-            <td>Rua Amado José, 45</td>
-            <td>73345-474</td>
-            <td>Alameda</td>
-            <td>Barueri</td>
-            <td>CN</td>
+            <td>Enderço, 00</td>
+            <td>99999-999</td>
+            <td>Bairro</td>
+            <td>Cidade</td>
+            <td>UF</td>
           </tr>
         </tbody>
       </table>

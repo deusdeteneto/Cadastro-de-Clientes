@@ -6,11 +6,11 @@ $(document).ready(function () {
   // Aplicar máscara ao campo CEP
   $("#inputCep").mask("00000-000");
 
-  function limpa_formulário_cep() {
-    $("#inputAddress").val("");
-    $("#inputDistrict").val("");
-    $("#inputCity").val("");
-    $("#inputState").val("");
+  function limparFormularioCep() {
+    document.querySelector("#inputAddress").value = "";
+    document.querySelector("#inputDistrict").value = "";
+    document.querySelector("#inputCity").value = "";
+    document.querySelector("#inputState").value = "";
   }
 
   $("#inputCep").blur(function () {
@@ -37,17 +37,17 @@ $(document).ready(function () {
               $("#inputCity").val(dados.localidade);
               $("#inputState").val(dados.uf);
             } else {
-              limpa_formulário_cep();
+              limparFormularioCep();
               cepNotFound.innerText = `CEP pesquisado não foi encontrado.`;
             }
           }
         );
       } else {
-        limpa_formulário_cep();
+        limparFormularioCep();
         cepInvalid.innerText = `CEP é inválido.`;
       }
     } else {
-      limpa_formulário_cep();
+      limparFormularioCep();
     }
   });
 });
@@ -65,24 +65,42 @@ $("#clientForm").submit(function (event) {
   const estado = document.querySelector("#inputState").value;
   const cep = document.querySelector("#inputCep").value;
 
-  // Adiciona o novo cliente ao array
-  clientes.push({
-    nome,
-    sobrenome,
-    endereco,
-    numero,
-    bairro,
-    cidade,
-    estado,
-    cep,
-  });
+  // Verificar se o cliente já existe
+  const clienteExistente = clientes.find(
+    (cliente) =>
+      cliente.nome === nome &&
+      cliente.sobrenome === sobrenome &&
+      cliente.endereco === endereco &&
+      cliente.numero === numero &&
+      cliente.bairro === bairro &&
+      cliente.cidade === cidade &&
+      cliente.estado === estado &&
+      cliente.cep === cep
+  );
 
-  // Atualiza a tabela
-  atualizarTabela();
+  if (clienteExistente) {
+    // Mostrar alerta de cliente já existente
+    $("#duplicateModal").modal("show");
+  } else {
+    // Adiciona o novo cliente ao array
+    clientes.push({
+      nome,
+      sobrenome,
+      endereco,
+      numero,
+      bairro,
+      cidade,
+      estado,
+      cep,
+    });
 
-  // Limpa o formulário
-  $("#clientForm")[0].reset();
-  limpa_formulário_cep();
+    // Atualiza a tabela
+    atualizarTabela();
+
+    // Limpa o formulário
+    $("#clientForm")[0].reset();
+    limparFormularioCep();
+  }
 });
 
 function atualizarTabela() {
