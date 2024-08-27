@@ -18,7 +18,7 @@ Este projeto é uma solução para o desafio de cadastro de clientes do Módulo 
 
 ### Imagem
 
-![Screenshot do Projeto](https://raw.githubusercontent.com/deusdeteneto/Seu-Repositorio/main/design/desktop-design.jpg) <!-- Substitua o link pela imagem de captura de tela do seu projeto -->
+![Screenshot do Projeto](https://raw.githubusercontent.com/deusdeteneto/Cadastro-de-Clientes/main/image/image%20desktop.jpeg)
 
 ### Links
 
