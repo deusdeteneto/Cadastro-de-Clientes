@@ -22,7 +22,7 @@ Este projeto é uma solução para o desafio de cadastro de clientes do Módulo 
 
 ### Links
 
-- URL do Site: [Adicionar URL do site aqui](https://recipe-page-zeta-five.vercel.app/) <!-- Substitua pela URL do site ao vivo -->
+- URL do Site: [Adicionar URL do site aqui](https://cadastro-de-clientes-one.vercel.app/)
 
 ## Meu processo
 
