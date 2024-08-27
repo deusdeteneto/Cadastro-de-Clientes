@@ -1,24 +1,11 @@
 #cep-notFound,
 #cep-invalid {
   font-size: 12px;
-  font-weight: bold;
-  font-style: italic;
+  margin-top: -0.5rem;
 }
 
-.form-label,
-.btn {
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-table {
-  font-size: 0.85rem;
-}
-
-@media (max-width: 350px) {
-  main {
-    margin:auto;
-    width: 90vw;
-    padding: 0;
+@media (max-width: 576px) {
+  .d-md-none {
+    display: none !important;
   }
 }

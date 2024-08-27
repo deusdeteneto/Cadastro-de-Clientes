@@ -1,19 +1,18 @@
-const cepNotFound = document.querySelector("#cep-notFound");
-const cepInvalid = document.querySelector("#cep-invalid");
-const clientes = [];
-
 $(document).ready(function () {
   // Aplicar máscara ao campo CEP
   $("#inputCep").mask("00000-000");
 
+  // Função para limpar os campos do formulário
   function limparFormularioCep() {
-    document.querySelector("#inputAddress").value = "";
-    document.querySelector("#inputDistrict").value = "";
-    document.querySelector("#inputCity").value = "";
-    document.querySelector("#inputState").value = "";
+    $("#inputAddress").val("");
+    $("#inputNumber").val("");
+    $("#inputDistrict").val("");
+    $("#inputCity").val("");
+    $("#inputState").val("");
   }
 
-  function habilityNumber() {
+  // Função para habilitar o campo Número
+  function habilitarNumero() {
     $("#inputNumber").prop("disabled", false);
     $("#inputAddress").val("...");
     $("#inputDistrict").val("...");
@@ -21,106 +20,108 @@ $(document).ready(function () {
     $("#inputState").val("...");
   }
 
-  $("#inputCep").blur(function () {
-    const cep = $(this).val().replace(/\D/g, "");
+  // Buscar endereço pelo CEP
+  $("#inputCep").on("blur", function () {
+    const cep = $(this).val().replace("-", "");
 
-    if (cep) {
-      const validacep = /^[0-9]{8}$/;
-
-      if (validacep.test(cep)) {
-        $.getJSON(
-          `https://viacep.com.br/ws/${cep}/json/?callback=?`,
-          function (dados) {
-            if (!("erro" in dados)) {
-              cepNotFound.innerText = ``;
-              cepInvalid.innerText = ``;
-              $("#inputAddress").val(dados.logradouro);
-              $("#inputDistrict").val(dados.bairro);
-              $("#inputCity").val(dados.localidade);
-              $("#inputState").val(dados.uf);
-            } else {
-              limparFormularioCep();
-              cepNotFound.innerText = `CEP pesquisado não foi encontrado.`;
-            }
+    if (cep.length === 8 && /^[0-9]+$/.test(cep)) {
+      $.getJSON(`https://viacep.com.br/ws/${cep}/json/`)
+        .done(function (data) {
+          if (!data.erro) {
+            $("#cep-notFound").text("");
+            $("#cep-invalid").text("");
+            $("#inputAddress").val(data.logradouro);
+            $("#inputDistrict").val(data.bairro);
+            $("#inputCity").val(data.localidade);
+            $("#inputState").val(data.uf);
+          } else {
+            limparFormularioCep();
+            $("#cep-notFound").text("CEP pesquisado não foi encontrado.");
           }
-        );
-      } else {
-        limparFormularioCep();
-        cepInvalid.innerText = `CEP é inválido.`;
-      }
-      habilityNumber();
+        })
+        .fail(function () {
+          limparFormularioCep();
+          $("#cep-invalid").text("Erro ao buscar CEP.");
+        });
+      habilitarNumero();
     } else {
+      limparFormularioCep();
+      $("#cep-invalid").text("CEP inválido.");
+    }
+  });
+
+  // Array para armazenar os clientes
+  const clientes = [];
+
+  // Envio do formulário
+  $("#clientForm").on("submit", function (event) {
+    event.preventDefault();
+
+    // Dados do formulário
+    const nome = $("#inputName").val();
+    const sobrenome = $("#inputSurname").val();
+    const endereco = $("#inputAddress").val();
+    const numero = $("#inputNumber").val();
+    const bairro = $("#inputDistrict").val();
+    const cidade = $("#inputCity").val();
+    const estado = $("#inputState").val();
+    const cep = $("#inputCep").val();
+
+    // Verificar se o cliente já existe
+    const clienteExistente = clientes.find(
+      (cliente) =>
+        cliente.nome === nome &&
+        cliente.sobrenome === sobrenome &&
+        cliente.endereco === endereco &&
+        cliente.numero === numero &&
+        cliente.bairro === bairro &&
+        cliente.cidade === cidade &&
+        cliente.estado === estado &&
+        cliente.cep === cep
+    );
+
+    if (clienteExistente) {
+      // Mostrar alerta de cliente já existente
+      $("#duplicateModal").modal("show");
+    } else {
+      // Adiciona o novo cliente ao array
+      clientes.push({
+        nome,
+        sobrenome,
+        endereco,
+        numero,
+        bairro,
+        cidade,
+        estado,
+        cep,
+      });
+
+      // Atualiza a tabela
+      atualizarTabela();
+
+      // Limpa o formulário
+      $("#clientForm")[0].reset();
       limparFormularioCep();
     }
   });
-});
 
-$("#clientForm").submit(function (event) {
-  event.preventDefault();
+  // Atualiza a tabela com os clientes
+  function atualizarTabela() {
+    const tbody = $("table tbody");
+    tbody.empty(); // Limpa a tabela atual/existente
 
-  //Dados do formulário
-  const nome = document.querySelector("#inputName").value;
-  const sobrenome = document.querySelector("#inputSurname").value;
-  const endereco = document.querySelector("#inputAddress").value;
-  const numero = document.querySelector("#inputNumber").value;
-  const bairro = document.querySelector("#inputDistrict").value;
-  const cidade = document.querySelector("#inputCity").value;
-  const estado = document.querySelector("#inputState").value;
-  const cep = document.querySelector("#inputCep").value;
-
-  // Verificar se o cliente já existe
-  const clienteExistente = clientes.find(
-    (cliente) =>
-      cliente.nome === nome &&
-      cliente.sobrenome === sobrenome &&
-      cliente.endereco === endereco &&
-      cliente.numero === numero &&
-      cliente.bairro === bairro &&
-      cliente.cidade === cidade &&
-      cliente.estado === estado &&
-      cliente.cep === cep
-  );
-
-  if (clienteExistente) {
-    // Mostrar alerta de cliente já existente
-    $("#duplicateModal").modal("show");
-  } else {
-    // Adiciona o novo cliente ao array
-    clientes.push({
-      nome,
-      sobrenome,
-      endereco,
-      numero,
-      bairro,
-      cidade,
-      estado,
-      cep,
+    clientes.forEach((cliente, index) => {
+      tbody.append(`
+        <tr>
+          <th scope="row" class="d-none d-md-table-cell">${index + 1}</th>
+          <td>${cliente.nome} ${cliente.sobrenome}</td>
+          <td>${cliente.endereco}, ${cliente.numero}</td>
+          <td>${cliente.cep}</td>
+          <td class="d-none d-md-table-cell">${cliente.bairro}</td>
+          <td class="d-none d-md-table-cell">${cliente.cidade}</td>
+          <td class="d-none d-md-table-cell">${cliente.estado}</td>
+        </tr>
+      `);
     });
-
-    // Atualiza a tabela
-    atualizarTabela();
-
-    // Limpa o formulário
-    $("#clientForm")[0].reset();
-    limparFormularioCep();
   }
 });
-
-function atualizarTabela() {
-  const tbody = $("table tbody");
-  tbody.empty(); //Limpa a tabela atual/existente
-
-  clientes.forEach((cliente, index) => {
-    tbody.append(`
-      <tr>
-            <th scope="row">${index + 1}</th>
-            <td>${cliente.nome} ${cliente.sobrenome}</td>
-            <td>${cliente.endereco}, ${cliente.numero}</td>
-            <td>${cliente.cep}</td>
-            <td>${cliente.bairro}</td>
-            <td>${cliente.cidade}</td>
-            <td>${cliente.estado}</td>
-          </tr>
-      `);
-  });
-}

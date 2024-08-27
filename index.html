@@ -59,7 +59,7 @@
             <label for="inputCep" class="form-label mx-1 mb-1"
               >Pesquise pelo CEP</label
             >
-            <div class="d-flex flex-wrap align-items-center">
+            <div class="d-sm-flex align-items-center">
               <div class="col-12 col-md-3 me-4">
                 <input
                   required
@@ -70,9 +70,14 @@
                 />
               </div>
               <div class="col-12 col-md-9">
-                <!-- TODO Ajustar os alertas no tamanho MOBILE -->
-                <span id="cep-notFound" class="text-danger d-block mt-2"></span>
-                <span id="cep-invalid" class="text-danger d-block mt-2"></span>
+                <span
+                  id="cep-notFound"
+                  class="text-danger fw-medium d-block mt-2"
+                ></span>
+                <span
+                  id="cep-invalid"
+                  class="text-danger fw-medium d-block mt-2"
+                ></span>
               </div>
             </div>
           </div>
@@ -172,24 +177,24 @@
       <table class="table table-sm mt-5">
         <thead>
           <tr>
-            <th scope="col" class="d-none d-sm-table-cell">#</th>
+            <th scope="col" class="d-none d-md-table-cell">#</th>
             <th scope="col">Nome Completo</th>
             <th scope="col">Endereço</th>
             <th scope="col">CEP</th>
-            <th scope="col" class="d-none d-sm-table-cell">Bairro</th>
-            <th scope="col" class="d-none d-sm-table-cell">Cidade</th>
-            <th scope="col" class="d-none d-sm-table-cell">Estado</th>
+            <th scope="col" class="d-none d-md-table-cell">Bairro</th>
+            <th scope="col" class="d-none d-md-table-cell">Cidade</th>
+            <th scope="col" class="d-none d-md-table-cell">Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" class="d-none d-sm-table-cell">1</th>
+            <th scope="row" class="d-none d-md-table-cell">1</th>
             <td>Nome Cliente</td>
             <td>Endereço, 00</td>
             <td>99999-999</td>
-            <td class="d-none d-sm-table-cell">Bairro</td>
-            <td class="d-none d-sm-table-cell">Cidade</td>
-            <td class="d-none d-sm-table-cell">UF</td>
+            <td class="d-none d-md-table-cell">Bairro</td>
+            <td class="d-none d-md-table-cell">Cidade</td>
+            <td class="d-none d-md-table-cell">UF</td>
           </tr>
         </tbody>
       </table>
