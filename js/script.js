@@ -13,6 +13,14 @@ $(document).ready(function () {
     document.querySelector("#inputState").value = "";
   }
 
+  function habilityNumber() {
+    $("#inputNumber").prop("disabled", false);
+    $("#inputAddress").val("...");
+    $("#inputDistrict").val("...");
+    $("#inputCity").val("...");
+    $("#inputState").val("...");
+  }
+
   $("#inputCep").blur(function () {
     const cep = $(this).val().replace(/\D/g, "");
 
@@ -20,12 +28,6 @@ $(document).ready(function () {
       const validacep = /^[0-9]{8}$/;
 
       if (validacep.test(cep)) {
-        $("#inputNumber").prop("disabled", false);
-        $("#inputAddress").val("...");
-        $("#inputDistrict").val("...");
-        $("#inputCity").val("...");
-        $("#inputState").val("...");
-
         $.getJSON(
           `https://viacep.com.br/ws/${cep}/json/?callback=?`,
           function (dados) {
@@ -46,6 +48,7 @@ $(document).ready(function () {
         limparFormularioCep();
         cepInvalid.innerText = `CEP é inválido.`;
       }
+      habilityNumber();
     } else {
       limparFormularioCep();
     }

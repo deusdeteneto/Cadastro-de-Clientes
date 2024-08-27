@@ -1,4 +1,3 @@
-
 #cep-notFound,
 #cep-invalid {
   font-size: 12px;
@@ -14,4 +13,12 @@
 
 table {
   font-size: 0.85rem;
+}
+
+@media (max-width: 350px) {
+  main {
+    margin:auto;
+    width: 90vw;
+    padding: 0;
+  }
 }
