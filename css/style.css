@@ -4,6 +4,13 @@
   margin-top: -0.5rem;
 }
 
+#loadingButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @media (max-width: 576px) {
   .d-md-none {
     display: none !important;

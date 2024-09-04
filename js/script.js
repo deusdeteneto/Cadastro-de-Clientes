@@ -20,38 +20,48 @@ $(document).ready(function () {
     $("#inputState").val("...");
   }
 
-  // Buscar endereço pelo CEP
-  let cepValido = false;
+  // Função para exibir o botão de loading
+  function mostrarLoading() {
+    $("#loadingButton").removeClass("d-none");
+  }
 
+  // Função para ocultar o botão de loading
+  function esconderLoading() {
+    $("#loadingButton").addClass("d-none");
+  }
+
+  // Buscar endereço pelo CEP
   $("#inputCep").on("blur", function () {
     const cep = $(this).val().replace("-", "");
 
     if (cep.length === 8 && /^[0-9]+$/.test(cep)) {
+      mostrarLoading(); // Mostrar o spinner
+
       $.getJSON(`https://viacep.com.br/ws/${cep}/json/`)
         .done(function (data) {
           if (!data.erro) {
-            limparFormularioCep();
+            $("#cep-notFound").text("");
+            $("#cep-invalid").text("");
             $("#inputAddress").val(data.logradouro);
             $("#inputDistrict").val(data.bairro);
             $("#inputCity").val(data.localidade);
             $("#inputState").val(data.uf);
-            cepValido = true; // CEP válido
           } else {
             limparFormularioCep();
-            $("#cepErrorModal").modal("show");
-            cepValido = false; // CEP inválido
+            $("#cep-notFound").text("CEP pesquisado não foi encontrado.");
           }
         })
         .fail(function () {
           limparFormularioCep();
-          $("#cepErrorModal").modal("show");
-          cepValido = false; // CEP inválido
+          $("#cep-invalid").text("Erro ao buscar CEP.");
+        })
+        .always(function () {
+          esconderLoading(); // Ocultar o spinner quando a chamada for concluída
         });
       habilitarNumero();
     } else {
       limparFormularioCep();
-      $("#cepErrorModal").modal("show");
-      cepValido = false; // CEP inválido
+      $("#cep-invalid").text("CEP inválido.");
     }
   });
 
@@ -61,11 +71,6 @@ $(document).ready(function () {
   // Envio do formulário
   $("#clientForm").on("submit", function (event) {
     event.preventDefault();
-
-    if (!cepValido) {
-      $("#cepErrorModal").modal("show");
-      return; // Não prosseguir com o salvamento
-    }
 
     // Dados do formulário
     const nome = $("#inputName").val();
@@ -91,7 +96,7 @@ $(document).ready(function () {
     );
 
     if (clienteExistente) {
-      // Mostrar a modal de cliente já existente
+      // Mostrar alerta de cliente já existente
       $("#duplicateModal").modal("show");
     } else {
       // Adiciona o novo cliente ao array
@@ -112,7 +117,6 @@ $(document).ready(function () {
       // Limpa o formulário
       $("#clientForm")[0].reset();
       limparFormularioCep();
-      cepValido = false; // Resetar a variável após salvar
     }
   });
 
