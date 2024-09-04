@@ -95,8 +95,9 @@
             <div class="col-4 flex-grow-6 mx-1 col-md-2">
               <label for="inputNumber" class="form-label mb-0">Número</label>
               <input
+                required
                 disabled
-                type="text"
+                type="number"
                 class="form-control form-control-sm"
                 id="inputNumber"
                 name="inputNumber"
@@ -168,6 +169,32 @@
             <div class="modal-body text-danger text-center fst-italic">
               Cliente com os mesmos dados já está cadastrado. Verifique os dados
               informados e tente novamente!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="cepErrorModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="cepErrorModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                class="modal-title text-danger fw-bold"
+                id="cepErrorModalLabel"
+              >
+                CEP Inválido ou Não Encontrado!
+              </h5>
+            </div>
+            <div class="modal-body text-danger text-center fst-italic">
+              O CEP informado é inválido ou não foi encontrado. Por favor,
+              verifique os dados e tente novamente!
             </div>
           </div>
         </div>
