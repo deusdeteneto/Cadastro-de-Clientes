@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  // Variável para armazenar o estado de validação do CEP
+  let cepValido = false;
+
   // Aplicar máscara ao campo CEP
   $("#inputCep").mask("00000-000");
 
@@ -46,14 +49,17 @@ $(document).ready(function () {
             $("#inputDistrict").val(data.bairro);
             $("#inputCity").val(data.localidade);
             $("#inputState").val(data.uf);
+            cepValido = true; // CEP é válido
           } else {
             limparFormularioCep();
             $("#cep-notFound").text("CEP pesquisado não foi encontrado.");
+            cepValido = false; // CEP não encontrado
           }
         })
         .fail(function () {
           limparFormularioCep();
           $("#cep-invalid").text("Erro ao buscar CEP.");
+          cepValido = false; // Erro ao buscar CEP
         })
         .always(function () {
           esconderLoading(); // Ocultar o spinner quando a chamada for concluída
@@ -62,6 +68,7 @@ $(document).ready(function () {
     } else {
       limparFormularioCep();
       $("#cep-invalid").text("CEP inválido.");
+      cepValido = false; // CEP inválido
     }
   });
 
@@ -71,6 +78,12 @@ $(document).ready(function () {
   // Envio do formulário
   $("#clientForm").on("submit", function (event) {
     event.preventDefault();
+
+    // Verificar se o CEP é válido antes de continuar
+    if (!cepValido) {
+      $("#duplicateModal").modal("show");
+      return; // Interrompe o envio do formulário
+    }
 
     // Dados do formulário
     const nome = $("#inputName").val();
